@@ -29,7 +29,7 @@ def main():
 		HM = strftime("%H:%M", time.localtime())
 		local_time = time.asctime(time.localtime())
 		# Get local time and convert to string
-		if(str(HM) == TIME_CLASS):
+		if(HM == TIME_CLASS):
 			print(f"Time for class! {HM}\n")
 			print(f"{local_time}")
 			play_sound()
