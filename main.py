@@ -1,47 +1,43 @@
-import time, gtts, os, pafy, vlc
+import time, os
+
 from time import strftime
-from playsound import playsound
 
-TIME_CLASS = "12:32"
+from music import Music
 
-def play_sound():
-	playsound("class.mp3") # Play mp3 file already downloaded
-	time.sleep(3.5)
+from voice import Voice
 
-def music():
-	url = "https://www.youtube.com/watch?v=4WkcYaAecOQ"
-	video = pafy.new(url)
-	best = video.getbest()
-	playurl = best.url
-	Instance = vlc.Instance()
-	player = Instance.media_player_new()
-	Media = Instance.media_new(playurl)
-	Media.get_mrl()
-	player.set_media(Media)
-	player.play()
-	time.sleep(120)
+# I am bad at OOP
+# Program will play voice saying "time for class" and a video
+# at the designated time
 
+class Alarm:
 
-def main():
-# In Loop: Grab local time (only hours&mins) 
-# If local time = class time playvoice
-	while True:
-		HM = strftime("%H:%M", time.localtime())
-		local_time = time.asctime(time.localtime())
-		# Get local time and convert to string
-		if(str(HM) == TIME_CLASS):
-			print(f"Time for class! {HM}\n")
-			print(f"{local_time}")
-			play_sound()
-			music()
-			os.system("clear")
-		else:
-			print(f"{local_time}")
-			os.system("clear")
-	time.sleep(1)
+	def __init__(self):
+		self.CLASS_TIME = "06:17"
+		self.music = Music()
+		self.voice = Voice()
+		
+	def run(self):
+		while True:
+			current_time = strftime("%H:%M", time.localtime())
+			full_time = time.asctime(time.localtime())
+
+			if(current_time == self.CLASS_TIME):
+				print(f"Time for class! {current_time}\n")
+				print(f"{full_time}")
+
+				# Call voice & music functions
+				self.voice.play_voice()
+				self.music.play_music()
+
+				os.system("clear")
+			else:
+				print(f"{full_time}")
+				os.system("clear")
+		time.sleep(1)
+
 
 if __name__ == '__main__':
-	main()
+	ai = Alarm()
+	ai.run()
 
-
-	
