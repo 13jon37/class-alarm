@@ -4,10 +4,6 @@ from playsound import playsound
 
 from gtts import gTTS
 
-path = os.path.abspath(os.getcwd())
-
-directories = os.scandir(path)
-
 class Voice:
 
 	def __init__(self):
